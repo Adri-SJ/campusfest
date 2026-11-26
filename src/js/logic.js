@@ -70,9 +70,18 @@ export function sortByDate(events) {
 
 // ---------- Búsqueda y filtros ----------
 
+export function normalizeText(text) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
 export function matchesSearch(event, query) {
-  const text = `${event.title} ${event.venue} ${event.categoryLabel}`.toLowerCase();
-  return text.includes(query.trim().toLowerCase());
+  const search = normalizeText(query);
+
+  return normalizeText(event.title).includes(search) ||
+    normalizeText(event.categoryLabel).includes(search);
 }
 
 export function filterEvents(events, { query = '', category = 'todas', day = null, onlyMine = false, mine = [] } = {}) {
