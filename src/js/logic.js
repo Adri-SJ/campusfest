@@ -63,8 +63,8 @@ export function countdownLabel(dateStr, todayStr) {
 }
 
 export function sortByDate(events) {
-  return [...events].sort((a, b) =>
-    formatShortDate(a.date).localeCompare(formatShortDate(b.date)),
+  return [...events].sort(
+    (a, b) => new Date(a.date) - new Date(b.date)
   );
 }
 
