@@ -24,16 +24,14 @@ export function isFull(event) {
 }
 
 export function spotsLabel(event) {
-  if (isFull(event)) {
-    return 'Cupo lleno';
-  }
-  return `${spotsLeft(event)} lugares`;
+  const spots = spotsLeft(event);
+  return spots === 1 ? '1 lugar' : `${spots} lugares`;
 }
 
 // ---------- Precio ----------
 
 export function formatPrice(price) {
-  return `$${price}`;
+  return price === 0 ? 'Gratis' : `$${price}`;
 }
 
 // ---------- Fechas ----------
@@ -51,14 +49,15 @@ export function daysUntil(dateStr, todayStr) {
   return Math.round((toDate(dateStr) - toDate(todayStr)) / MS_PER_DAY);
 }
 
-export function countdownLabel(dateStr, todayStr) {
-  const days = daysUntil(dateStr, todayStr);
-  if (days === 0) {
-    return 'Hoy';
+export function countdownLabel(date, today) {
+  const days = Math.ceil(
+    (new Date(date) - new Date(today)) / 86400000
+  );
+
+  if (days < 0) {
+    return 'Finalizado';
   }
-  if (days === 1) {
-    return 'Mañana';
-  }
+
   return `Faltan ${days} días`;
 }
 
