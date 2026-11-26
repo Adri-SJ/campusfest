@@ -39,8 +39,8 @@ export function formatPrice(price) {
 // ---------- Fechas ----------
 
 export function formatShortDate(dateStr) {
-  const date = toDate(dateStr);
-  return `${pad(date.getDate())}/${pad(date.getMonth())}`;
+  const [year, month, day] = dateStr.split('-');
+  return `${day}/${month}`;
 }
 
 export function weekdayName(dateStr) {
