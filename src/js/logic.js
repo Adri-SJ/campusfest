@@ -49,13 +49,19 @@ export function daysUntil(dateStr, todayStr) {
   return Math.round((toDate(dateStr) - toDate(todayStr)) / MS_PER_DAY);
 }
 
-export function countdownLabel(date, today) {
-  const days = Math.ceil(
-    (new Date(date) - new Date(today)) / 86400000
-  );
+export function countdownLabel(dateStr, todayStr) {
+  const days = daysUntil(dateStr, todayStr);
 
   if (days < 0) {
     return 'Finalizado';
+  }
+
+  if (days === 0) {
+    return 'Hoy';
+  }
+
+  if (days === 1) {
+    return 'Falta 1 día';
   }
 
   return `Faltan ${days} días`;
